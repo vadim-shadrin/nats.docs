@@ -131,6 +131,21 @@ await nc.connect(io_loop=loop, tls=ssl_ctx)
 
 await nc.connect(servers=["nats://demo.nats.io:4222"], tls=ssl_ctx)
 
+----------
+
+NATS_SERVER_URL = tls://yourhost:4222
+
+from pynats import NATSClient
+
+nc = NATSClient(tls_cacert=getenv('NATS_ROOT_CA'),
+                             tls_client_cert=getenv('NATS_CLIENT_CERT'),
+                             tls_client_key=getenv('NATS_CLIENT_KEY'),
+                             url=getenv('NATS_SERVER_URL'),
+                             tls_verify=True)
+nc.connect()
+nc.publish("my_pipeline", payload = b"test payload")
+
+
 # Do something with the connection.
 ```
 {% endtab %}
